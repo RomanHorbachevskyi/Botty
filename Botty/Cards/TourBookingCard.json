@@ -1,0 +1,179 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "medium",
+      "weight": "bolder",
+      "text": "Tour booker",
+      "wrap": true
+    },
+    {
+      "type": "TextBlock",
+      "text": "Country you are going from:",
+      "wrap": true
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "DepartureCountry",
+      "separator": true,
+      "placeholder": "Departure Country",
+      "choices": [
+        {
+          "title": "Country1",
+          "value": "Country2"
+        },
+        {
+          "title": "Country2",
+          "value": "Country2"
+        },
+        {
+          "title": "Country3",
+          "value": "Country3"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "City you are going from:",
+      "wrap": true
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "DepartureCity",
+      "placeholder": "Departure City",
+      "choices": [
+        {
+          "title": "DepartureCity1",
+          "value": "DepartureCity1"
+        },
+        {
+          "title": "DepartureCity2",
+          "value": "DepartureCity2"
+        },
+        {
+          "title": "DepartureCity3",
+          "value": "DepartureCity3"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "separator": true,
+      "text": "Destination country",
+      "wrap": true
+    },
+    {
+      "type": "Input.ChoiceSet",
+      "id": "ArrivalCountry",
+      "placeholder": "Destination country",
+      "choices": [
+        {
+          "title": "Country1",
+          "value": "Country1"
+        },
+        {
+          "title": "Country2",
+          "value": "Country2"
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "horizontalAlignment": "Left",
+              "text": "Departure Date",
+              "wrap": true
+            },
+            {
+              "type": "Input.Date",
+              "id": "DepartureDate",
+              "title": "Departure date"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Number of adults",
+              "wrap": true
+            }
+          ],
+          "width": "stretch"
+        },
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Arrival Date",
+              "wrap": true
+            },
+            {
+              "type": "Input.Date",
+              "id": "ArrivalDate",
+              "title": "Arrival date"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Number of children younger 12",
+              "wrap": true
+            }
+          ],
+          "width": "stretch"
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "Input.Number",
+              "id": "NumberOfAdults",
+              "title": "Number of adults",
+              "placeholder": "Adults",
+              "min": "1",
+              "max": "300"
+            }
+          ],
+          "width": "stretch"
+        },
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "Input.Number",
+              "id": "NumberOfChildrenYounger12",
+              "title": "Children younger 12",
+              "placeholder": "Children younger 12"
+            }
+          ],
+          "width": "stretch"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "id": "SubmitData",
+      "title": "Submit data"
+    },
+    {
+      "type": "Action.ShowCard",
+      "title": "Action.ShowCard",
+      "card": {
+        "type": "AdaptiveCard",
+        "style": "emphasis",
+        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+      }
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.0"
+}

@@ -1,0 +1,15 @@
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\bin\Debug\netcoreapp2.1\appsettings.json
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\bin\Debug\netcoreapp2.1\Botty.deps.json
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\bin\Debug\netcoreapp2.1\Botty.runtimeconfig.json
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\bin\Debug\netcoreapp2.1\Botty.runtimeconfig.dev.json
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\bin\Debug\netcoreapp2.1\Botty.dll
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\bin\Debug\netcoreapp2.1\Botty.pdb
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\obj\Debug\netcoreapp2.1\Botty.csprojAssemblyReference.cache
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\obj\Debug\netcoreapp2.1\Botty.csproj.CoreCompileInputs.cache
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\obj\Debug\netcoreapp2.1\Botty.RazorAssemblyInfo.cache
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\obj\Debug\netcoreapp2.1\Botty.RazorAssemblyInfo.cs
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\obj\Debug\netcoreapp2.1\Botty.AssemblyInfoInputs.cache
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\obj\Debug\netcoreapp2.1\Botty.AssemblyInfo.cs
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\obj\Debug\netcoreapp2.1\Botty.RazorTargetAssemblyInfo.cache
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\obj\Debug\netcoreapp2.1\Botty.dll
+d:\!_Documents_!\_EPAM_\_Training_\_Internal_\BotTest\Botty\Botty\obj\Debug\netcoreapp2.1\Botty.pdb

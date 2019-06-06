@@ -150,7 +150,9 @@
               "type": "Input.Number",
               "id": "NumberOfChildrenYounger12",
               "title": "Children younger 12",
-              "placeholder": "Children younger 12"
+              "placeholder": "Children younger 12",
+              "min": "0",
+              "max": "300"
             }
           ],
           "width": "stretch"
@@ -162,7 +164,8 @@
     {
       "type": "Action.Submit",
       "id": "SubmitData",
-      "title": "Submit data"
+      "title": "Submit data",
+      "data": {"action": "dataSender"}
     },
     {
       "type": "Action.ShowCard",

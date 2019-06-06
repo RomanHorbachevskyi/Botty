@@ -5,13 +5,17 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using AdaptiveCards;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs.Choices;
 using Microsoft.Bot.Schema;
 using Microsoft.Recognizers.Text.DataTypes.TimexExpression;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Botty.Dialogs
 {
@@ -32,7 +36,7 @@ namespace Botty.Dialogs
                 //TravelDateStepAsync,
                 //NightsNumberStepAsync,
                 LoadCardAsync,
-                HandleResponseAsync,
+                //HandleResponseAsync,
                 ConfirmStepAsync,
                 FinalStepAsync,
             }));
@@ -156,21 +160,38 @@ namespace Botty.Dialogs
         {
             var welcomeCard = CreateAdaptiveCardAttachment();
             var response = CreateResponse(stepContext.Context.Activity, welcomeCard);
-            
-            await stepContext.Context.SendActivityAsync(response, cancellationToken);
 
-            // Create the text prompt
-            var opts = new PromptOptions
+            //await stepContext.Context.SendActivityAsync(response, cancellationToken);
+            return await stepContext.PromptAsync(nameof(TextPrompt),
+                new PromptOptions {Prompt = response}, cancellationToken);
+            
+            await stepContext.ContinueDialogAsync(cancellationToken);
+            //var adaptiveCard = File.ReadAllText(@".\Cards\TourBookingCard.json");
+            if (stepContext.Context.Responded)
             {
-                Prompt = new Activity
-                {
-                    Type = ActivityTypes.Message,
-                    Text = "waiting for user input...", // You can comment this out if you don't want to display any text. Still works.
-                }
-            };
+                return await this.ResumeDialogAsync(stepContext, stepContext.Reason, stepContext.Result, cancellationToken);
+                
+            }
+
+            return await this.ContinueDialogAsync(stepContext, cancellationToken);
+            ;
+            //return await this.ContinueDialogAsync(stepContext, cancellationToken);
+
+            //return await stepContext.NextAsync((BookingTourDetails)stepContext.Options, cancellationToken);
+            ////return await stepContext.PromptAsync(nameof(AttachmentPrompt),
+            ////    new PromptOptions{Prompt = response}, cancellationToken);
+            // Create the text prompt
+            //var opts = new PromptOptions
+            //{
+            //    Prompt = new Activity
+            //    {
+            //        Type = ActivityTypes.Message,
+            //        Text = "waiting for user input...", // You can comment this out if you don't want to display any text. Still works.
+            //    }
+            //};
 
             // Display a Text Prompt and wait for input
-            return await stepContext.PromptAsync(nameof(TextPrompt), opts, cancellationToken);
+            //return await stepContext.PromptAsync(nameof(TextPrompt), opts, cancellationToken);
 
 
             // ToDo
@@ -190,12 +211,38 @@ namespace Botty.Dialogs
             //    return await stepContext.EndDialogAsync(null, cancellationToken);
             //}
         }
-        private async Task<DialogTurnResult> HandleResponseAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task HandleResponseAsync(ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
         {
             // Do something with step.result
             // Adaptive Card submissions are objects, so you likely need to JObject.Parse(step.result)
-            await stepContext.Context.SendActivityAsync($"INPUT: {stepContext.Result}");
-            return await stepContext.NextAsync();
+            //await stepContext.Context.SendActivityAsync($"INPUT: {stepContext.Result}");
+            //return await stepContext.NextAsync();
+
+
+
+            var token = JToken.Parse(turnContext.Activity.ChannelData.ToString());
+            string recievedData = string.Empty;
+            string DepartureCountry = string.Empty;
+            string DepartureCity = string.Empty;
+            string ArrivalCountry = string.Empty;
+            string DepartureDate = string.Empty;
+            string ArrivalDate = string.Empty;
+            string NumberOfAdults = string.Empty;
+            string NumberOfChildrenYounger12 = string.Empty;
+
+            if (System.Convert.ToBoolean(token["postback"].Value<string>()))
+            {
+                //JToken commandToken = JToken.Parse(turnContext.Activity.Value.ToString());
+                //string command = commandToken["action"].Value<string>();
+
+                //if (command.ToLowerInvariant() == "dataselector")
+                //{
+                //    recievedData = commandToken["choiceset"].Value<string>();
+                //}
+
+            }
+
+            await turnContext.SendActivityAsync($"You Selected {recievedData}", cancellationToken: cancellationToken);
         }
 
 
@@ -216,10 +263,33 @@ namespace Botty.Dialogs
             string[] paths = { ".", "Cards", "TourBookingCard.json" };
             string fullPath = Path.Combine(paths);
             var adaptiveCard = File.ReadAllText(fullPath);
+            //return new Attachment()
+            //{
+            //    ContentType = "application/vnd.microsoft.card.adaptive",
+            //    Content = JsonConvert.DeserializeObject(adaptiveCard),
+            //};
+
+            //var card = new AdaptiveCard();
+            // Get a JSON-serialized payload
+            // Your app will probably get cards from somewhere else :)
+            ////var client = new HttpClient("http://adaptivecards.io/payloads/ActivityUpdate.json");
+            ////var response = await client.GetAsync(cardUrl);
+            var json = adaptiveCard; // await response.Content.ReadAsStringAsync();
+
+            // Parse the JSON 
+            AdaptiveCardParseResult result = AdaptiveCard.FromJson(json);
+
+            // Get card from result
+            AdaptiveCard card = result.Card;
+            
+            // Optional: check for any parse warnings
+            // This includes things like unknown element "type"
+            // or unknown properties on element
+            IList<AdaptiveWarning> warnings = result.Warnings;
             return new Attachment()
             {
                 ContentType = "application/vnd.microsoft.card.adaptive",
-                Content = JsonConvert.DeserializeObject(adaptiveCard),
+                Content = card
             };
         }
     }

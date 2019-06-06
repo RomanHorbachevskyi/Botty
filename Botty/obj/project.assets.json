@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
+      "AdaptiveCards/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "Newtonsoft.Json": "12.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/AdaptiveCards.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/AdaptiveCards.dll": {}
+        }
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
         "type": "package",
         "dependencies": {
@@ -2860,7 +2873,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Newtonsoft.Json/11.0.2": {
+      "Newtonsoft.Json/12.0.2": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
@@ -4625,6 +4638,20 @@
     }
   },
   "libraries": {
+    "AdaptiveCards/1.2.0": {
+      "sha512": "jEqYefC5/EY4xSzh12n+/uEj96+p6/aw6mNoseucGDmti4rLiN2CuVYPs3lAAbKoj83QIOJBZ0Ad1IoAEx3wKg==",
+      "type": "package",
+      "path": "adaptivecards/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "adaptivecards.1.2.0.nupkg.sha512",
+        "adaptivecards.nuspec",
+        "lib/net452/AdaptiveCards.dll",
+        "lib/netstandard1.3/AdaptiveCards.dll",
+        "lib/netstandard2.0/AdaptiveCards.dll"
+      ]
+    },
     "Microsoft.AspNet.WebApi.Client/5.2.6": {
       "sha512": "owAlEIUZXWSnkK8Z1c+zR47A0X6ykF4XjbPok4lQKNuciUfHLGPd6QnI+rt/8KlQ17PmF+I4S3f+m+Qe4IvViw==",
       "type": "package",
@@ -7636,10 +7663,10 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Newtonsoft.Json/11.0.2": {
-      "sha512": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+    "Newtonsoft.Json/12.0.2": {
+      "sha512": "mtweBXPWhp1CMQATtBT7ZfMZrbZBTKfjGwz6Y75NwGjx/GztDaUnfw8GK9KZ2T4fDIqKJyDjc9Rxlw5+G2FcVA==",
       "type": "package",
-      "path": "newtonsoft.json/11.0.2",
+      "path": "newtonsoft.json/12.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7662,7 +7689,7 @@
         "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "newtonsoft.json.11.0.2.nupkg.sha512",
+        "newtonsoft.json.12.0.2.nupkg.sha512",
         "newtonsoft.json.nuspec"
       ]
     },
@@ -12500,6 +12527,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "AdaptiveCards >= 1.2.0",
       "Microsoft.AspNetCore.App >= 2.1.1",
       "Microsoft.Bot.Builder.AI.Luis >= 4.4.3",
       "Microsoft.Bot.Builder.Dialogs >= 4.4.3",
@@ -12550,6 +12578,10 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
+          "AdaptiveCards": {
+            "target": "Package",
+            "version": "[1.2.0, )"
+          },
           "Microsoft.AspNetCore.App": {
             "suppressParent": "All",
             "target": "Package",

@@ -38,65 +38,6 @@ namespace Botty.Bots
         {
             await base.OnTurnAsync(turnContext, cancellationToken);
 
-            if (turnContext.Activity.Type == ActivityTypes.Message)
-            {
-                
-
-                if (turnContext.Activity.GetType().GetProperty("ChannelData") != null)
-                {
-                    
-                    var channelData = JObject.Parse(turnContext.Activity.ChannelData.ToString());
-                    if (channelData.ContainsKey("postBack"))
-                    {
-                        await turnContext.SendActivityAsync(turnContext.Activity.Value.ToString());
-
-                        var token = JToken.Parse(turnContext.Activity.ChannelData.ToString());
-                        string recievedData = string.Empty;
-                        string DepartureCountry = string.Empty;
-                        string DepartureCity = string.Empty;
-                        string ArrivalCountry = string.Empty;
-                        string DepartureDate = string.Empty;
-                        string ArrivalDate = string.Empty;
-                        string NumberOfAdults = string.Empty;
-                        string NumberOfChildrenYounger12 = string.Empty;
-
-                        if (System.Convert.ToBoolean(token["postback"].Value<string>()))
-                        {
-                            JToken commandToken = JToken.Parse(turnContext.Activity.Value.ToString());
-                            string command = commandToken["action"].Value<string>();
-
-                            if (command.ToLowerInvariant() == "dataselector")
-                            {
-                                recievedData = commandToken["choiceset"].Value<string>();
-                                await turnContext.SendActivityAsync($"You Selected {recievedData}",
-                                    cancellationToken: cancellationToken);
-                            }
-
-                        }
-                    }
-
-
-                }
-            }
-
-            //if (turnContext.Activity.Type == ActivityTypes.Message)
-            //{
-            //    // Ensure that message is a postBack (like a submission from Adaptive Cards)
-            //    if (turnContext.Activity.GetType().GetProperty("ChannelData") != null)
-            //    {
-            //        var channelData = JObject.Parse(turnContext.Activity.ChannelData.ToString());
-            //        if (channelData.ContainsKey("postBack"))
-            //        {
-            //            var postbackActivity = turnContext.Activity;
-            //            // Convert the user's Adaptive Card input into the input of a Text Prompt
-            //            // Must be sent as a string
-            //            postbackActivity.Text = postbackActivity.Value.ToString();
-            //            await turnContext.SendActivityAsync(postbackActivity);
-            //        }
-            //    }
-            //}
-
-
             // Save any state changes that might have occured during the turn.
             await ConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
             await UserState.SaveChangesAsync(turnContext, false, cancellationToken);
@@ -106,45 +47,75 @@ namespace Botty.Bots
         {
             Logger.LogInformation("Running dialog with Message Activity.");
 
+            
+
+            if (turnContext.Activity.GetType().GetProperty("ChannelData") != null)
+            {
+                var channelData = JObject.Parse(turnContext.Activity.ChannelData.ToString());
+                if (channelData.ContainsKey("postBack"))
+                {
+                    var token = JToken.Parse(turnContext.Activity.ChannelData.ToString());
+                    string recievedData = string.Empty;
+                    string DepartureCountry = string.Empty;
+                    string DepartureCity = string.Empty;
+                    string ArrivalCountry = string.Empty;
+                    string DepartureDate = string.Empty;
+                    string ArrivalDate = string.Empty;
+                    string NumberOfAdults = string.Empty;
+                    string NumberOfChildrenYounger12 = string.Empty;
+
+                    await turnContext.SendActivityAsync(turnContext.Activity.Value.ToString(), cancellationToken:cancellationToken);
+
+                    //if (System.Convert.ToBoolean(token["postBack"].Value<string>()))
+                    {
+                        JToken commandToken = JToken.Parse(turnContext.Activity.Value.ToString());
+                        string command = commandToken["action"].Value<string>();
+
+                        if (command.ToLowerInvariant() == "datasender")
+                        {
+                            
+                            //recievedData = commandToken["choiceset"].Value<string>();
+                            DepartureCountry = commandToken["DepartureCountry"].Value<string>();
+                            DepartureCity = commandToken["DepartureCity"].Value<string>();
+                            ArrivalCountry = commandToken["ArrivalCountry"].Value<string>();
+                            DepartureDate = commandToken["DepartureDate"].Value<string>();
+                            ArrivalDate = commandToken["ArrivalDate"].Value<string>();
+                            NumberOfAdults = commandToken["NumberOfAdults"].Value<string>();
+                            NumberOfChildrenYounger12 = commandToken["NumberOfChildrenYounger12"].Value<string>();
+                            await turnContext.SendActivityAsync($"You Selected {DepartureCountry}, " +
+                                                                $"{DepartureCity}, " +
+                                                                $"{ArrivalCountry}, " +
+                                                                $"{DepartureDate}, " +
+                                                                $"{ArrivalDate}, " +
+                                                                $"{NumberOfAdults}, " +
+                                                                $"{NumberOfChildrenYounger12}, ",
+                                cancellationToken: cancellationToken);
+                            await ConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
+                            await UserState.SaveChangesAsync(turnContext, false, cancellationToken);
+                            
+                        }
+                        else
+                        {
+                            // Run the Dialog with the new message Activity.
+                            //await Dialog.Run(turnContext, ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
+                        }
+                    }
+                }
+                else
+                {
+                    // Run the Dialog with the new message Activity.
+                    //await Dialog.Run(turnContext, ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
+                }
+            }
+            else
+            {
+                // Run the Dialog with the new message Activity.
+                //await Dialog.Run(turnContext, ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
+            }
+
+
             // Run the Dialog with the new message Activity.
             await Dialog.Run(turnContext, ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
-
-            //if (turnContext.Activity.GetType().GetProperty("ChannelData") != null)
-            //{
-
-
-
-
-            //    var channelData = JObject.Parse(turnContext.Activity.ChannelData.ToString());
-            //    if (channelData.ContainsKey("postBack"))
-            //    {
-            //        var token = JToken.Parse(turnContext.Activity.ChannelData.ToString());
-            //        string recievedData = string.Empty;
-            //        string DepartureCountry = string.Empty;
-            //        string DepartureCity = string.Empty;
-            //        string ArrivalCountry = string.Empty;
-            //        string DepartureDate = string.Empty;
-            //        string ArrivalDate = string.Empty;
-            //        string NumberOfAdults = string.Empty;
-            //        string NumberOfChildrenYounger12 = string.Empty;
-
-            //        if (System.Convert.ToBoolean(token["postback"].Value<string>()))
-            //        {
-            //            JToken commandToken = JToken.Parse(turnContext.Activity.Value.ToString());
-            //            string command = commandToken["action"].Value<string>();
-
-            //            if (command.ToLowerInvariant() == "dataselector")
-            //            {
-            //                recievedData = commandToken["choiceset"].Value<string>();
-            //                await turnContext.SendActivityAsync($"You Selected {recievedData}",
-            //                    cancellationToken: cancellationToken);
-            //            }
-
-            //        }
-            //    }
-
-
-            //}
         }
     }
 }

@@ -194,9 +194,6 @@ namespace Botty.Dialogs
             //return await stepContext.PromptAsync(nameof(TextPrompt), opts, cancellationToken);
 
 
-            // ToDo
-            // await Submit Button from form
-
             //return await stepContext.NextAsync((stepContext.Options as BookingTourDetails), cancellationToken);
             //return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions{Prompt = response}, cancellationToken);
 
